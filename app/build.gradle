@@ -17,6 +17,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    buildFeatures {
+        viewBinding true
+    }
 
     buildTypes {
         release {
@@ -36,11 +39,11 @@ android {
 dependencies {
 
     implementation libraries.app.androidx.appcompat
+    implementation libraries.app.androidx.material
+    implementation libraries.app.androidx.viewPager2
     implementation libraries.app.kotlin.stdlib
     implementation libraries.app.lifecycle.viewModel
-
     implementation libraries.app.hilt.core
-
     implementation libraries.app.navigation.fragment
     implementation libraries.app.navigation.ui
     implementation libraries.app.navigation.dynamicFeatures
