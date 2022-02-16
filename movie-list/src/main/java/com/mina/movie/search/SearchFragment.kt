@@ -10,18 +10,23 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mina.common.models.Movie
 import com.mina.movie.search.databinding.SearchFragmentBinding
 
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private lateinit var binding: SearchFragmentBinding
     private val viewModel: SearchViewModel by viewModels()
+
+    @Inject
+    internal lateinit var adapter: MovieListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +41,8 @@ class SearchFragment : Fragment(), SearchView.OnQueryTextListener {
         observeViewEvents()
         binding.searchView.isSubmitButtonEnabled = true
         binding.searchView.setOnQueryTextListener(this)
+        binding.movieList.adapter = adapter
+        binding.movieList.layoutManager = LinearLayoutManager(context);
     }
 
     private fun observeViewEvents() {
@@ -61,6 +68,7 @@ class SearchFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private fun showContent(movies: List<Movie>) {
         binding.textView.visibility = GONE
+        adapter.updateAdapter(movies)
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

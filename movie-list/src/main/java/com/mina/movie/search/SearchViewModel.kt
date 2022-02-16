@@ -17,17 +17,17 @@ internal class SearchViewModel @Inject constructor(private val movieListReposito
     ViewModel() {
 
     private val _viewState: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Empty)
-    val viewState: Flow<ViewState> get() = _viewState.filterNotNull()
+    val viewState: Flow<ViewState> get() = _viewState
 
     private val _viewEvent: Channel<ViewEvent> = Channel(Channel.CONFLATED)
     val viewEvent: Flow<ViewEvent> = _viewEvent.receiveAsFlow()
 
     fun performSearch(query: String?) {
         if (query != null) {
+            _viewState.value = ViewState.Loading
             viewModelScope.launch {
-                _viewState.emit(ViewState.Loading)
                 val movies: List<Movie> = movieListRepository.searchMovies(query)
-                _viewState.emit(ViewState.Content(movies))
+                _viewState.value = ViewState.Content(movies)
             }
         }
     }
