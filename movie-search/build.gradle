@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
@@ -9,24 +9,12 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.mina.movies"
         minSdk 23
         targetSdk 31
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildFeatures {
-        viewBinding true
-    }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -34,28 +22,24 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
 
-    implementation project(":movie-search")
+    implementation project(":common-models")
 
     implementation libraries.app.androidx.appcompat
     implementation libraries.app.androidx.material
-    implementation libraries.app.androidx.viewPager2
     implementation libraries.app.kotlin.stdlib
     implementation libraries.app.lifecycle.viewModel
     implementation libraries.app.hilt.core
+
     implementation libraries.app.navigation.fragment
     implementation libraries.app.navigation.ui
     implementation libraries.app.navigation.dynamicFeatures
 
     kapt libraries.app.hilt.compiler
-
-    testImplementation 'junit:junit:4.+'
-
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
-
 }

@@ -9,3 +9,5 @@ dependencyResolutionManagement {
 rootProject.name = "Movies"
 include ':app'
 include ':network'
+include ':movie-search'
+include ':common-models'
