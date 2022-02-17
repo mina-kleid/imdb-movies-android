@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Movies</string>
     <string name="movie_list_search_hint">Please search for a movie</string>
     <string name="movie_list_empty">Please search for a movie</string>
     <string name="movie_list_error">There is an error, Please try again later</string>

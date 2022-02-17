@@ -20,10 +20,10 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), SearchView.OnQueryTextListener {
+class MovieListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private lateinit var binding: SearchFragmentBinding
-    private val viewModel: SearchViewModel by viewModels()
+    private val viewModel: MovieListViewModel by viewModels()
 
     @Inject
     internal lateinit var adapter: MovieListAdapter
@@ -55,12 +55,12 @@ class SearchFragment : Fragment(), SearchView.OnQueryTextListener {
             .onEach {
                 binding.textView.visibility = VISIBLE
                 when (it) {
-                    is SearchViewModel.ViewState.Content -> showContent(it.movies)
-                    SearchViewModel.ViewState.Loading -> binding.textView.text =
+                    is MovieListViewModel.ViewState.Content -> showContent(it.movies)
+                    MovieListViewModel.ViewState.Loading -> binding.textView.text =
                         getString(R.string.movie_list_loading)
-                    SearchViewModel.ViewState.Error -> binding.textView.text =
+                    MovieListViewModel.ViewState.Error -> binding.textView.text =
                         getString(R.string.movie_list_error)
-                    SearchViewModel.ViewState.Empty -> binding.textView.text =
+                    MovieListViewModel.ViewState.Empty -> binding.textView.text =
                         getString(R.string.movie_list_empty)
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)

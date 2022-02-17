@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class SearchViewModel @Inject constructor(private val movieListRepository: MovieListRepository) :
+internal class MovieListViewModel @Inject constructor(private val movieListRepository: MovieListRepository) :
     ViewModel() {
 
     private val _viewState: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Empty)

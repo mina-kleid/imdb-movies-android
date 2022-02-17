@@ -2,7 +2,7 @@ package com.mina.movie.ui.main.tabs
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.mina.movie.search.SearchFragment
+import com.mina.movie.search.MovieListFragment
 
 
 internal class TabCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
@@ -20,7 +20,7 @@ internal class TabCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(f
         const val TAB_COUNT: Int = 2
         val TABS: List<Tab> = listOf(
             Tab("Favorites", Fragment()),
-            Tab("Search", SearchFragment())
+            Tab("Search", MovieListFragment())
         )
     }
 
