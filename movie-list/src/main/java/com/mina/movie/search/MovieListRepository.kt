@@ -8,8 +8,8 @@ internal class MovieListRepository @Inject constructor() {
 
     suspend fun searchMovies(query: String): List<Movie> {
         return listOf(
-            Movie("Movie 1"),
-            Movie("Movie 2")
+            Movie("Movie 1", "Director", "1990"),
+            Movie("Movie 2", "Director2", "1992")
         )
     }
 }

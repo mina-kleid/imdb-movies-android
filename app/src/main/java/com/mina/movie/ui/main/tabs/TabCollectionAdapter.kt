@@ -19,8 +19,8 @@ internal class TabCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(f
     companion object {
         const val TAB_COUNT: Int = 2
         val TABS: List<Tab> = listOf(
-            Tab("Favorites", Fragment()),
-            Tab("Search", MovieListFragment())
+            Tab("Search", MovieListFragment()),
+            Tab("Favorites", Fragment())
         )
     }
 

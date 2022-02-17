@@ -12,8 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mina.common.models.Movie
-import com.mina.movie.search.databinding.SearchFragmentBinding
-
+import com.mina.movie.search.databinding.MovieListFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -22,7 +21,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MovieListFragment : Fragment(), SearchView.OnQueryTextListener {
 
-    private lateinit var binding: SearchFragmentBinding
+    private lateinit var binding: MovieListFragmentBinding
     private val viewModel: MovieListViewModel by viewModels()
 
     @Inject
@@ -32,7 +31,7 @@ class MovieListFragment : Fragment(), SearchView.OnQueryTextListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = SearchFragmentBinding.inflate(inflater, container, false)
+        binding = MovieListFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
