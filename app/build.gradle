@@ -39,6 +39,8 @@ android {
 dependencies {
 
     implementation project(':movie-list')
+    implementation project(':movie')
+
     implementation libraries.app.androidx.appcompat
     implementation libraries.app.androidx.material
     implementation libraries.app.androidx.viewPager2
