@@ -7,10 +7,11 @@ import com.mina.common.models.Movie
 
 internal class MovieListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(movie: Movie) {
+    fun bind(movie: Movie, itemClickListener: MovieListItemClickListener) {
         val movieName: TextView = itemView.findViewById(R.id.movieTitle)
         val movieDetails: TextView = itemView.findViewById(R.id.movieDetails)
         movieName.text = movie.title
         movieDetails.text = "${movie.director} ${movie.year}"
+        itemView.setOnClickListener { itemClickListener.onItemClicked(movie) }
     }
 }

@@ -1,5 +1,7 @@
 package com.mina.movie.search
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +9,12 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mina.common.models.Movie
 import com.mina.movie.search.databinding.MovieListFragmentBinding
@@ -19,7 +24,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MovieListFragment : Fragment(), SearchView.OnQueryTextListener {
+class MovieListFragment : Fragment(), SearchView.OnQueryTextListener, MovieListItemClickListener {
 
     private lateinit var binding: MovieListFragmentBinding
     private val viewModel: MovieListViewModel by viewModels()
@@ -77,5 +82,11 @@ class MovieListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onQueryTextChange(newText: String?): Boolean {
         return false
+    }
+
+    override fun onItemClicked(movie: Movie) {
+        val uri = Uri.parse("android-app://com.mina.movies/movie_fragment?mo={$movie}")
+        //https://issuetracker.google.com/issues/148523779?pli=1
+        findNavController().navigate(uri)
     }
 }

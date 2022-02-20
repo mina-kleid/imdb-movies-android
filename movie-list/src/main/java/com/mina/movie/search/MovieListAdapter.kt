@@ -3,12 +3,14 @@ package com.mina.movie.search
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.mina.common.models.Movie
 import javax.inject.Inject
 
-internal class MovieListAdapter @Inject constructor() :
-    RecyclerView.Adapter<MovieListViewHolder>() {
+internal class MovieListAdapter @Inject constructor(
+    private val itemClickListener: MovieListItemClickListener
+) : RecyclerView.Adapter<MovieListViewHolder>() {
 
     private val movies: MutableList<Movie> = mutableListOf()
 
@@ -20,7 +22,7 @@ internal class MovieListAdapter @Inject constructor() :
     }
 
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
-        holder.bind(movies[position])
+        holder.bind(movie = movies[position], itemClickListener = itemClickListener)
     }
 
     override fun getItemCount(): Int = movies.size
