@@ -8,7 +8,7 @@
         android:name="com.mina.movie.MovieFragment"
         tools:layout="@layout/movie_fragment" >
 
-        <argument android:name="movie" android:defaultValue="@null" app:nullable="true" app:argType="com.mina.common.models.Movie"/>
-        <deepLink app:uri="android-app://com.mina.movies/movie_fragment" />
+        <argument android:name="movie" app:argType="string"/>
+        <deepLink app:uri="android-app://com.mina.movies/movie_fragment?movie={movie}" />
     </fragment>
 </navigation>

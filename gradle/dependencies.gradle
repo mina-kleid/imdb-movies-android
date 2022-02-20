@@ -36,7 +36,8 @@ ext {
                             fragment       : "androidx.navigation:navigation-fragment-ktx:$nav_version",
                             ui             : "androidx.navigation:navigation-ui-ktx:$nav_version",
                             dynamicFeatures: "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
-                    ]
+                    ],
+                    gson: "com.google.code.gson:gson:2.8.8"
             ]
     ]
 }

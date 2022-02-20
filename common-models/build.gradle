@@ -31,4 +31,5 @@ android {
 
 dependencies {
     implementation libraries.app.kotlin.stdlib
+    implementation libraries.app.gson
 }
