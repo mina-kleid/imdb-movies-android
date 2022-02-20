@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.mina.movie.R
 import com.mina.movie.databinding.MainFragmentBinding
 import com.mina.movie.ui.main.tabs.TabCollectionAdapter
 
@@ -32,6 +34,9 @@ class MainFragment : Fragment() {
         TabLayoutMediator(binding.tabLayout, viewPager) { tab, position ->
             tab.text = TabCollectionAdapter.TABS[position].title
         }.attach()
+
+        (requireActivity() as AppCompatActivity).supportActionBar?.title =
+            getString(R.string.app_name)
     }
 
 }
