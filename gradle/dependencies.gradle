@@ -1,5 +1,7 @@
 ext {
-    nav_version = "2.4.1"
+    def nav_version = "2.4.1"
+    def room_version = "2.4.1"
+
     libraries = [
             app: [
                     "androidx": [
@@ -11,10 +13,10 @@ ext {
                             "core"        : "androidx.core:core-ktx:1.6.0",
                             "viewbinding" : "androidx.databinding:viewbinding:4.2.0@aar",
                             "fragment"    : "androidx.fragment:fragment-ktx:1.6.0",
-                            "material": "com.google.android.material:material:1.5.0",
+                            "material"    : "com.google.android.material:material:1.5.0",
                             "preferences" : "androidx.preference:preference-ktx:1.1.1",
                             "recyclerView": "androidx.recyclerview:recyclerview:1.2.0",
-                            "viewPager2"   : "androidx.viewpager2:viewpager2:1.0.0",
+                            "viewPager2"  : "androidx.viewpager2:viewpager2:1.0.0",
                     ],
                     hilt      : [
                             "core"    : "com.google.dagger:hilt-android:2.38.1",
@@ -37,7 +39,11 @@ ext {
                             ui             : "androidx.navigation:navigation-ui-ktx:$nav_version",
                             dynamicFeatures: "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
                     ],
-                    gson: "com.google.code.gson:gson:2.8.8"
+                    gson      : "com.google.code.gson:gson:2.8.8",
+                    room      : [
+                            runtime               : "androidx.room:room-runtime:$room_version",
+                            annotationProcessor: "androidx.room:room-compiler:$room_version"
+                    ]
             ]
     ]
 }
