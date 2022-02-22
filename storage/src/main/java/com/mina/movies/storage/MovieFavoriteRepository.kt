@@ -1,19 +1,12 @@
 package com.mina.movies.storage
 
 import com.mina.common.models.Movie
+import javax.inject.Inject
 
+public interface MovieFavoriteRepository {
+    suspend fun isMovieFavorited(movie: Movie): Boolean
 
-public class MovieFavoriteRepository {
+    suspend fun setMovieFavorited(movie: Movie)
 
-    fun isMovieFavorited(movie: Movie): Boolean {
-        return true
-    }
-
-    fun setMovieFavorited(movie: Movie) {
-
-    }
-
-    fun setMovieUnfavorited(movie: Movie) {
-
-    }
+    suspend fun setMovieUnfavorited(movie: Movie)
 }

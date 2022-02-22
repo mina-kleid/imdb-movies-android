@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -38,6 +40,8 @@ dependencies {
     implementation project(":common-models")
 
     implementation libraries.app.room.runtime
-    annotationProcessor libraries.app.room.annotationProcessor
+    implementation libraries.app.hilt.core
 
+    kapt libraries.app.room.annotationProcessor
+    kapt libraries.app.hilt.compiler
 }
