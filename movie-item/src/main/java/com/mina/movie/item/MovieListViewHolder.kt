@@ -11,7 +11,7 @@ public class MovieListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
         val movieName: TextView = itemView.findViewById(R.id.movieTitle)
         val movieDetails: TextView = itemView.findViewById(R.id.movieDetails)
         movieName.text = movie.title
-        movieDetails.text = "${movie.director} ${movie.year}"
+        movieDetails.text = "${movie.rating} ${movie.year}"
         itemView.setOnClickListener { itemClickListener.onItemClicked(movie) }
     }
 }

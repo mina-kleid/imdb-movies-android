@@ -10,7 +10,6 @@ internal class MovieListRepository @Inject constructor() {
         return listOf(
             Movie(
                 title = "Movie 1",
-                director = "Director",
                 year = "1990",
                 rating = "7/10",
                 posterUrl = "url",
@@ -18,7 +17,6 @@ internal class MovieListRepository @Inject constructor() {
             ),
             Movie(
                 title = "Movie 2",
-                director = "Director",
                 year = "1992",
                 rating = "1/10",
                 posterUrl = "url",
