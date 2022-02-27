@@ -41,8 +41,9 @@ ext {
                     ],
                     gson      : "com.google.code.gson:gson:2.8.8",
                     room      : [
-                            runtime               : "androidx.room:room-runtime:$room_version",
-                            annotationProcessor: "androidx.room:room-compiler:$room_version"
+                            runtime            : "androidx.room:room-runtime:$room_version",
+                            annotationProcessor: "androidx.room:room-compiler:$room_version",
+                            ktx                : "androidx.room:room-ktx:$room_version"
                     ]
             ]
     ]

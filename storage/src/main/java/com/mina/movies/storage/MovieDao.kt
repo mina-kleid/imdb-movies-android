@@ -1,28 +1,28 @@
 package com.mina.movies.storage
 
-import androidx.room.Dao
-import androidx.room.Insert
+import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import androidx.room.Query
-import androidx.room.Update
 
 @Dao
 internal interface MovieDao {
     @Query("SELECT * FROM movie where title = :title AND year = :year LIMIT 1")
-    fun getMovie(title: String, year: String): Movie?
+    suspend fun getMovie(title: String, year: String): MovieEntity?
 
     @Insert(onConflict = REPLACE)
-    fun insert(movie: Movie)
+    suspend fun insert(movieEntity: MovieEntity)
 
     @Update
-    fun update(vararg movie: Movie)
+    suspend fun update(vararg movieEntity: MovieEntity)
 
-    fun updateOrInsert(movie: Movie) {
-        val movieFromDatabase: Movie? = getMovie(title = movie.title, year = movie.year)
-        if (movieFromDatabase != null) {
-            update(movieFromDatabase)
+    @Delete
+    suspend fun delete(movieEntity: MovieEntity)
+
+    suspend fun updateOrInsert(movieEntity: MovieEntity) {
+        val movieEntityFromDatabase: MovieEntity? = getMovie(title = movieEntity.title, year = movieEntity.year)
+        if (movieEntityFromDatabase != null) {
+            update(movieEntityFromDatabase)
         } else {
-            insert(movie)
+            insert(movieEntity)
         }
     }
 }
