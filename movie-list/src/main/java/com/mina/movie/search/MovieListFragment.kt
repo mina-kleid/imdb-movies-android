@@ -15,6 +15,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mina.common.models.Movie
 import com.mina.common.models.MovieJsonConverter
+import com.mina.movie.item.MovieListAdapter
+import com.mina.movie.item.MovieListItemClickListener
 import com.mina.movie.search.databinding.MovieListFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn

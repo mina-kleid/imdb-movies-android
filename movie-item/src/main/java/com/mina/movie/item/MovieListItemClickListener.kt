@@ -1,7 +1,7 @@
-package com.mina.movie.search
+package com.mina.movie.item
 
 import com.mina.common.models.Movie
 
-interface MovieListItemClickListener {
+public interface MovieListItemClickListener {
     fun onItemClicked(movie: Movie)
 }
