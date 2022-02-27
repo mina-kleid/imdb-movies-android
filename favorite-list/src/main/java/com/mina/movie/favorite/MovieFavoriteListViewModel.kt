@@ -1,9 +1,6 @@
 package com.mina.movie.favorite
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.OnLifecycleEvent
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.mina.common.models.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +9,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class MovieFavoriteListViewModel @Inject constructor(private val movieFavoriteListRepository: MovieFavoriteListRepository) : ViewModel() {
+internal class MovieFavoriteListViewModel @Inject constructor(private val movieFavoriteListRepository: MovieFavoriteListRepository) :
+    ViewModel(),
+    LifecycleObserver {
 
     private val _viewState: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Empty)
     val viewState: Flow<ViewState> get() = _viewState
@@ -22,7 +21,11 @@ internal class MovieFavoriteListViewModel @Inject constructor(private val movieF
         _viewState.value = ViewState.Loading
         viewModelScope.launch {
             val movies: List<Movie> = movieFavoriteListRepository.loadFavorites()
-            _viewState.value = ViewState.Content(movies)
+            if (movies.isNotEmpty()) {
+                _viewState.value = ViewState.Content(movies)
+            } else {
+                _viewState.value = ViewState.Empty
+            }
         }
 
     }

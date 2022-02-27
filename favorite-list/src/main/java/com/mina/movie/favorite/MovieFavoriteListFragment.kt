@@ -1,5 +1,6 @@
 package com.mina.movie.favorite
 
+import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -34,14 +35,20 @@ class MovieFavoriteListFragment : Fragment(), MovieListItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
+
         binding = MovieFavoriteListFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        observeViewStates()
+        super.onViewCreated(view, savedInstanceState)
+        viewLifecycleOwner.lifecycle.addObserver(viewModel)
+
         binding.movieList.adapter = adapter
         binding.movieList.layoutManager = LinearLayoutManager(context);
+
+        observeViewStates()
     }
 
     private fun observeViewStates() {
