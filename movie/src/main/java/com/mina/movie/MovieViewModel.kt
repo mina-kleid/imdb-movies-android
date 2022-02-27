@@ -5,10 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.mina.common.models.Movie
 import com.mina.movies.storage.MovieFavoriteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,7 +23,7 @@ internal class MovieViewModel @Inject constructor(private val movieFavoriteRepos
     fun initialize(movie: Movie) {
         this.movie = movie
         viewModelScope.launch {
-            isMovieFavorited = movieFavoriteRepository.isMovieFavorited(movie)
+            isMovieFavorited = movieFavoriteRepository.isMovieFavorite(movie)
             _viewState.value = ViewState.Content(isFavorite = isMovieFavorited)
         }
     }
@@ -34,10 +32,10 @@ internal class MovieViewModel @Inject constructor(private val movieFavoriteRepos
         _viewState.value = ViewState.Loading
         viewModelScope.launch {
             isMovieFavorited = if (isMovieFavorited) {
-                movieFavoriteRepository.setMovieUnfavorited(movie = movie)
+                movieFavoriteRepository.removeMovieFromFavorite(movie = movie)
                 false
             } else {
-                movieFavoriteRepository.setMovieFavorited(movie = movie)
+                movieFavoriteRepository.addMovieToFavorite(movie = movie)
                 true
             }
             _viewState.value = ViewState.Content(isFavorite = isMovieFavorited)

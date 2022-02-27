@@ -4,9 +4,12 @@ import com.mina.common.models.Movie
 import javax.inject.Inject
 
 public interface MovieFavoriteRepository {
-    suspend fun isMovieFavorited(movie: Movie): Boolean
 
-    suspend fun setMovieFavorited(movie: Movie)
+    suspend fun getAllFavoriteMovies(): List<Movie>
 
-    suspend fun setMovieUnfavorited(movie: Movie)
+    suspend fun isMovieFavorite(movie: Movie): Boolean
+
+    suspend fun addMovieToFavorite(movie: Movie)
+
+    suspend fun removeMovieFromFavorite(movie: Movie)
 }

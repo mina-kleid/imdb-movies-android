@@ -7,6 +7,6 @@ import javax.inject.Inject
 internal class MovieFavoriteListRepository @Inject constructor(
     private val movieFavoriteRepository: MovieFavoriteRepository
 ) {
-    suspend fun loadFavorites(): List<Movie> = emptyList()
-
+    suspend fun loadFavorites(): List<Movie> =
+        movieFavoriteRepository.getAllFavoriteMovies()
 }
