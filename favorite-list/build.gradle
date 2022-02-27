@@ -30,6 +30,7 @@ android {
 dependencies {
 
     implementation project(":common-models")
+    implementation project(":movie-item")
 
     implementation libraries.app.androidx.appcompat
     implementation libraries.app.androidx.material
