@@ -36,11 +36,13 @@ class MovieListFragment : Fragment(), SearchView.OnQueryTextListener, MovieListI
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = MovieListFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         observeViewStates()
         observeViewEvents()
         binding.searchView.isSubmitButtonEnabled = true
