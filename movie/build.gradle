@@ -37,6 +37,7 @@ android {
 
 dependencies {
     implementation project(":common-models")
+    implementation project(":storage")
 
     implementation libraries.app.androidx.appcompat
     implementation libraries.app.androidx.material

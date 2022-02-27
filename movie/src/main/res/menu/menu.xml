@@ -4,7 +4,14 @@
 
         <item
             android:id="@+id/action_favorite"
-            android:icon="@drawable/ic_heart_outline"
+            android:icon="@drawable/ic_favorite"
             app:showAsAction="always"
+            android:title="@string/icon_favorite_title" />
+
+        <item
+            android:id="@+id/action_loading"
+            android:icon="@drawable/ic_loading"
+            app:showAsAction="always"
+            android:visible="false"
             android:title="@string/icon_favorite_title" />
 </menu>

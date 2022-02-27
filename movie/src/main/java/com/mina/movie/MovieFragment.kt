@@ -1,15 +1,21 @@
 package com.mina.movie
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.mina.common.models.Movie
 import com.mina.common.models.MovieJsonConverter
 import com.mina.movie.databinding.MovieFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 internal class MovieFragment : Fragment() {
@@ -18,6 +24,9 @@ internal class MovieFragment : Fragment() {
     private lateinit var binding: MovieFragmentBinding
 
     private val args: MovieFragmentArgs by navArgs()
+
+    private var favoriteMenuItem: MenuItem? = null
+    private var loadingMenuItem: MenuItem? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,22 +43,59 @@ internal class MovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val movie: Movie = MovieJsonConverter.fromJson(args.movie)
+        viewModel.initialize(movie)
+
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = movie.title
+
+        observeViewState()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu, menu)
+        favoriteMenuItem = menu.findItem(R.id.action_favorite)
+        loadingMenuItem = menu.findItem(R.id.action_loading)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_favorite -> {
-                true
+                viewModel.movieFavoriteToggled()
+                return true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
 
+
+    private fun observeViewState() {
+        viewModel
+            .viewState
+            .onEach {
+                when (it) {
+                    is MovieViewModel.ViewState.Content -> {
+                        favoriteMenuItem?.isVisible = true
+                        loadingMenuItem?.isVisible = false
+                        updateFavoriteMenuItem(it.isFavorite)
+                    }
+                    MovieViewModel.ViewState.Loading -> {
+                        favoriteMenuItem?.isVisible = false
+                        loadingMenuItem?.isVisible = true
+                    }
+                }
+            }
+            .launchIn(lifecycleScope)
+    }
+
+    private fun updateFavoriteMenuItem(isFavorite: Boolean) {
+        val icon: Drawable? = if (isFavorite) {
+            ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorite)
+        } else {
+            ContextCompat.getDrawable(requireContext(), R.drawable.ic_not_favorite)
+        }
+        favoriteMenuItem?.icon = icon
     }
 }
