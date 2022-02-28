@@ -6,10 +6,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [MovieEntity::class],
-    version = 2,
-    autoMigrations = [
-        AutoMigration(from = 1, to = 2)
-    ]
+    version = 1
 )
 internal abstract class MovieDatabase: RoomDatabase() {
     abstract fun movieDao(): MovieDao
