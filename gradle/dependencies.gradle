@@ -1,11 +1,12 @@
 ext {
     def nav_version = "2.4.1"
     def room_version = "2.4.1"
+    def retro_version = "2.9.0"
+    def okHttp_Version = "4.9.3"
 
     libraries = [
             app: [
                     "androidx": [
-
                             "activity"    : "androidx.activity:activity-ktx:1.2.3",
                             "annotations" : "androidx.annotation:annotation:1.2.0",
                             "appcompat"   : "androidx.appcompat:appcompat:1.3.1",
@@ -14,7 +15,6 @@ ext {
                             "viewbinding" : "androidx.databinding:viewbinding:4.2.0@aar",
                             "fragment"    : "androidx.fragment:fragment-ktx:1.6.0",
                             "material"    : "com.google.android.material:material:1.5.0",
-                            "preferences" : "androidx.preference:preference-ktx:1.1.1",
                             "recyclerView": "androidx.recyclerview:recyclerview:1.2.0",
                             "viewPager2"  : "androidx.viewpager2:viewpager2:1.0.0",
                     ],
@@ -44,7 +44,16 @@ ext {
                             runtime            : "androidx.room:room-runtime:$room_version",
                             annotationProcessor: "androidx.room:room-compiler:$room_version",
                             ktx                : "androidx.room:room-ktx:$room_version"
-                    ]
+                    ],
+                    network   : [
+                            retrofit2: [
+                                    converterMoshi: "com.squareup.retrofit2:converter-moshi:$retro_version",
+                                    core          : "com.squareup.retrofit2:retrofit:$retro_version",
+                            ],
+                            okHttp   : [
+                                    core: "com.squareup.okhttp3:okhttp:$okHttp_Version"
+                            ]
+                    ],
             ]
     ]
 }

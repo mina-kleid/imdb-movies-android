@@ -46,6 +46,7 @@ dependencies {
     implementation project(':favorite-list')
     implementation project(':movie')
     implementation project(':movie-item')
+    implementation project(':network')
 
     implementation libraries.app.androidx.appcompat
     implementation libraries.app.androidx.material
