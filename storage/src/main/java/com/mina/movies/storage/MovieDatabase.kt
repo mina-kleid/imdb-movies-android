@@ -1,6 +1,5 @@
 package com.mina.movies.storage
 
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
@@ -8,6 +7,6 @@ import androidx.room.RoomDatabase
     entities = [MovieEntity::class],
     version = 1
 )
-internal abstract class MovieDatabase: RoomDatabase() {
+internal abstract class MovieDatabase : RoomDatabase() {
     abstract fun movieDao(): MovieDao
 }

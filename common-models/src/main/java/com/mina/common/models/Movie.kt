@@ -10,5 +10,5 @@ public data class Movie constructor(
     val year: String,
     val description: String,
     val rating: String,
-    val posterUrl: String
+    val posterUrl: String?
     ): Parcelable

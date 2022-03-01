@@ -8,5 +8,5 @@ internal data class MovieEntity(
     val year: String,
     val rating: String,
     val description: String,
-    val posterUrl: String
+    val posterUrl: String?
 )
