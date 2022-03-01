@@ -39,7 +39,12 @@ dependencies {
 
     implementation libraries.app.network.retrofit2.core
     implementation libraries.app.network.retrofit2.converterMoshi
+    implementation libraries.app.network.moshi.adapters
+    implementation libraries.app.network.moshi.core
+    implementation libraries.app.network.moshi.kotlin
     implementation libraries.app.hilt.core
+    implementation libraries.app.kotlin.stdlib
 
+    kapt libraries.app.network.moshi.codegen
     kapt libraries.app.hilt.compiler
 }

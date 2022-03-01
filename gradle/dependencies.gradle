@@ -1,8 +1,9 @@
 ext {
     def nav_version = "2.4.1"
     def room_version = "2.4.1"
+    def moshi_version = "1.13.0"
     def retro_version = "2.9.0"
-    def okHttp_Version = "4.9.3"
+    def okHttp_version = "4.9.3"
 
     libraries = [
             app: [
@@ -50,8 +51,14 @@ ext {
                                     converterMoshi: "com.squareup.retrofit2:converter-moshi:$retro_version",
                                     core          : "com.squareup.retrofit2:retrofit:$retro_version",
                             ],
+                            moshi    : [
+                                    adapters: "com.squareup.moshi:moshi-adapters:$moshi_version",
+                                    core    : "com.squareup.moshi:moshi:$moshi_version",
+                                    codegen : "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version",
+                                    kotlin  : "com.squareup.moshi:moshi-kotlin:$moshi_version",
+                            ],
                             okHttp   : [
-                                    core: "com.squareup.okhttp3:okhttp:$okHttp_Version"
+                                    core: "com.squareup.okhttp3:okhttp:$okHttp_version"
                             ]
                     ],
             ]
