@@ -63,6 +63,8 @@ class MovieListFragment : Fragment(), SearchView.OnQueryTextListener, MovieListI
                         getString(R.string.movie_list_error)
                     MovieListViewModel.ViewState.Empty -> binding.textView.text =
                         getString(R.string.movie_list_empty)
+                    MovieListViewModel.ViewState.Initial -> binding.textView.text =
+                        getString(R.string.movie_list_Initial)
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }

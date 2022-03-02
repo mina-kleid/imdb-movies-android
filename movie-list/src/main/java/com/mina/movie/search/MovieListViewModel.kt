@@ -16,7 +16,7 @@ import javax.inject.Inject
 internal class MovieListViewModel @Inject constructor(private val movieListRepository: MovieListRepository) :
     ViewModel() {
 
-    private val _viewState: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Empty)
+    private val _viewState: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Initial)
     val viewState: Flow<ViewState> get() = _viewState
 
     fun performSearch(query: String?) {
@@ -40,6 +40,7 @@ internal class MovieListViewModel @Inject constructor(private val movieListRepos
 
     sealed class ViewState {
 
+        object Initial: ViewState()
         data class Content(val movies: List<Movie>) : ViewState()
         object Empty : ViewState()
         object Loading : ViewState()
