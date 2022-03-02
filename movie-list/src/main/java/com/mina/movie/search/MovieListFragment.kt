@@ -44,15 +44,10 @@ class MovieListFragment : Fragment(), SearchView.OnQueryTextListener, MovieListI
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeViewStates()
-        observeViewEvents()
         binding.searchView.isSubmitButtonEnabled = true
         binding.searchView.setOnQueryTextListener(this)
         binding.movieList.adapter = adapter
         binding.movieList.layoutManager = LinearLayoutManager(context);
-    }
-
-    private fun observeViewEvents() {
-
     }
 
     private fun observeViewStates() {

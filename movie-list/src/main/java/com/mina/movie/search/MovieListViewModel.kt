@@ -19,18 +19,24 @@ internal class MovieListViewModel @Inject constructor(private val movieListRepos
     private val _viewState: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Empty)
     val viewState: Flow<ViewState> get() = _viewState
 
-    private val _viewEvent: Channel<ViewEvent> = Channel(Channel.CONFLATED)
-    val viewEvent: Flow<ViewEvent> = _viewEvent.receiveAsFlow()
-
     fun performSearch(query: String?) {
         if (query != null) {
             _viewState.value = ViewState.Loading
             viewModelScope.launch {
-                val movies: List<Movie> = movieListRepository.searchMovies(query)
-                _viewState.value = ViewState.Content(movies)
+                _viewState.value = getMovies(query)
             }
         }
     }
+
+    private suspend fun getMovies(query: String): ViewState =
+        when (
+            val response: MovieListRepository.MovieListResponse =
+                movieListRepository.searchMovies(query)
+        ) {
+            is MovieListRepository.MovieListResponse.Success -> ViewState.Content(response.movies)
+            MovieListRepository.MovieListResponse.Empty -> ViewState.Empty
+            is MovieListRepository.MovieListResponse.Error -> ViewState.Error
+        }
 
     sealed class ViewState {
 
@@ -38,8 +44,5 @@ internal class MovieListViewModel @Inject constructor(private val movieListRepos
         object Empty : ViewState()
         object Loading : ViewState()
         object Error : ViewState()
-    }
-
-    sealed class ViewEvent {
     }
 }
