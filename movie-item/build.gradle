@@ -36,6 +36,7 @@ dependencies {
     implementation libraries.app.kotlin.stdlib
     implementation libraries.app.lifecycle.viewModel
     implementation libraries.app.hilt.core
+    implementation libraries.app.glide
 
     implementation libraries.app.navigation.fragment
     implementation libraries.app.navigation.ui
