@@ -18,4 +18,3 @@ public data class MoviesResponseDto(
         @Json(name = "poster_path") val posterUrl: String? = null
     )
 }
-

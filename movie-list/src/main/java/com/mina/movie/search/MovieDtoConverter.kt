@@ -6,11 +6,11 @@ import javax.inject.Inject
 
 internal class MovieDtoConverter @Inject constructor() {
 
-    fun convert(movieDto: MoviesResponseDto.MovieDto): Movie =
+    fun convert(movieDto: MoviesResponseDto.MovieDto, posterImageBaseUrl: String): Movie =
         Movie(
             title = movieDto.title,
             description = movieDto.description,
-            posterUrl = movieDto.posterUrl,
+            posterUrl = movieDto.posterUrl?.prependIndent(posterImageBaseUrl),
             year = movieDto.year,
             rating = movieDto.rating
         )

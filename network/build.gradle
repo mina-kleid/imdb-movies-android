@@ -17,11 +17,13 @@ android {
         release {
             minifyEnabled false
             buildConfigField "String", "API_URL", "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", "API_POSTER_BASE_URL", "\"https://image.tmdb.org/t/p/w342/\""
             buildConfigField "String", "API_KEY", "\"5c2feddb3762f9485f7fad24bf60c5b3\""
         }
         debug {
             buildConfigField "String", "API_URL", "\"https://api.themoviedb.org/3/\""
             buildConfigField "String", "API_KEY", "\"5c2feddb3762f9485f7fad24bf60c5b3\""
+            buildConfigField "String", "API_POSTER_BASE_URL", "\"https://image.tmdb.org/t/p/w342/\""
         }
     }
 

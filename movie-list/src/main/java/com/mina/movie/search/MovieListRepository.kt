@@ -20,10 +20,10 @@ internal class MovieListRepository @Inject constructor(
                     return MovieListResponse.Empty
                 }
                 val movieList: List<Movie> = movieDtoList
-                    .map { movieDtoConverter.convert(it) }
+                    .map { movieDtoConverter.convert(it, MoviesService.POSTER_IMAGE_BASE_URL) }
                 return MovieListResponse.Success(movieList)
             } else {
-                throw UnknownError()
+                throw Exception("Unknown")
             }
         } catch (e: Exception) {
             return MovieListResponse.Error(e)

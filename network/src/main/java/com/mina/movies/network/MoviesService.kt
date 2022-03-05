@@ -23,4 +23,8 @@ public class MoviesService @Inject constructor(
             Result.failure(e)
         }
     }
+
+    companion object {
+        const val POSTER_IMAGE_BASE_URL = BuildConfig.API_POSTER_BASE_URL
+    }
 }
