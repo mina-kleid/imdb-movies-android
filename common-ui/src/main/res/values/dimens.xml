@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="half_gap">8dp</dimen>
+    <dimen name="gap">16dp</dimen>
+    <dimen name="gap_and_a_half">24dp</dimen>
+    <dimen name="double_gap">32dp</dimen>
+</resources>
