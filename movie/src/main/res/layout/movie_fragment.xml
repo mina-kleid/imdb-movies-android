@@ -26,7 +26,8 @@
             android:layout_height="wrap_content"
             android:gravity="start"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/moviePoster" />
+            app:layout_constraintTop_toBottomOf="@id/moviePoster"
+            android:text="@string/director"/>
 
         <TextView
             android:id="@+id/rating"
