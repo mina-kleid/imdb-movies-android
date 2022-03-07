@@ -49,6 +49,7 @@ class MovieFavoriteListFragment : Fragment(), MovieListItemClickListener {
         binding.movieList.layoutManager = LinearLayoutManager(context);
 
         observeViewStates()
+        observeViewEvents()
     }
 
     private fun observeViewStates() {
@@ -66,15 +67,23 @@ class MovieFavoriteListFragment : Fragment(), MovieListItemClickListener {
             }.launchIn(lifecycleScope)
     }
 
+    private fun observeViewEvents() {
+        viewModel
+            .viewEvent
+            .onEach {
+                when (it) {
+                    is MovieFavoriteListViewModel.ViewEvent.Navigate -> findNavController().navigate(it.uri)
+                }
+            }
+            .launchIn(lifecycleScope)
+    }
+
     private fun showContent(movies: List<Movie>) {
         binding.textView.visibility = View.GONE
         adapter.updateAdapter(movies)
     }
 
     override fun onItemClicked(movie: Movie) {
-        //https://issuetracker.google.com/issues/148523779?pli=1
-        val movieJson: String = MovieJsonConverter.toJson(movie)
-        val uri = Uri.parse("android-app://com.mina.movies/movie_fragment?movie=$movieJson")
-        findNavController().navigate(uri)
+        viewModel.movieClicked(movie = movie)
     }
 }

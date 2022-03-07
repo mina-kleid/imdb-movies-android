@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -32,4 +33,7 @@ android {
 dependencies {
     implementation libraries.app.kotlin.stdlib
     implementation libraries.app.gson
+    implementation libraries.app.hilt.core
+
+    kapt libraries.app.hilt.compiler
 }

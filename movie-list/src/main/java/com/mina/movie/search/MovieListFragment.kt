@@ -1,6 +1,5 @@
 package com.mina.movie.search
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mina.common.models.Movie
-import com.mina.common.models.MovieJsonConverter
 import com.mina.movie.item.MovieListAdapter
 import com.mina.movie.item.MovieListItemClickListener
 import com.mina.movie.search.databinding.MovieListFragmentBinding
@@ -44,6 +42,7 @@ class MovieListFragment : Fragment(), SearchView.OnQueryTextListener, MovieListI
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeViewStates()
+        observeViewEvents()
         binding.searchView.isSubmitButtonEnabled = true
         binding.searchView.setOnQueryTextListener(this)
         binding.movieList.adapter = adapter
@@ -69,6 +68,17 @@ class MovieListFragment : Fragment(), SearchView.OnQueryTextListener, MovieListI
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
+    private fun observeViewEvents() {
+        viewModel
+            .viewEvent
+            .onEach {
+                when (it) {
+                    is MovieListViewModel.ViewEvent.Navigate -> findNavController().navigate(it.uri)
+                }
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
     private fun showContent(movies: List<Movie>) {
         binding.textView.visibility = GONE
         adapter.updateAdapter(movies)
@@ -84,9 +94,6 @@ class MovieListFragment : Fragment(), SearchView.OnQueryTextListener, MovieListI
     }
 
     override fun onItemClicked(movie: Movie) {
-        //https://issuetracker.google.com/issues/148523779?pli=1
-        val movieJson: String = MovieJsonConverter.toJson(movie)
-        val uri = Uri.parse("android-app://com.mina.movies/movie_fragment?movie=$movieJson")
-        findNavController().navigate(uri)
+        viewModel.movieClicked(movie = movie)
     }
 }
