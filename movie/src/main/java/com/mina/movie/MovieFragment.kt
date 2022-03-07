@@ -5,17 +5,17 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.mina.common.models.Movie
-import com.mina.common.models.MovieJsonConverter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.mina.movie.databinding.MovieFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
 @AndroidEntryPoint
 internal class MovieFragment : Fragment() {
@@ -27,6 +27,9 @@ internal class MovieFragment : Fragment() {
 
     private var favoriteMenuItem: MenuItem? = null
     private var loadingMenuItem: MenuItem? = null
+
+    @Inject
+    lateinit var requestOptions: RequestOptions
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,11 +47,9 @@ internal class MovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val movie: Movie = MovieJsonConverter.fromJson(args.movie)
-        viewModel.initialize(movie)
+        viewModel.initialize(args.movie)
 
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = movie.title
 
         observeViewState()
     }
@@ -79,7 +80,7 @@ internal class MovieFragment : Fragment() {
                     is MovieViewModel.ViewState.Content -> {
                         favoriteMenuItem?.isVisible = true
                         loadingMenuItem?.isVisible = false
-                        updateFavoriteMenuItem(it.isFavorite)
+                        update(movieFavorite = it.movieFavorite)
                     }
                     MovieViewModel.ViewState.Loading -> {
                         favoriteMenuItem?.isVisible = false
@@ -88,6 +89,24 @@ internal class MovieFragment : Fragment() {
                 }
             }
             .launchIn(lifecycleScope)
+    }
+
+    private fun update(movieFavorite: MovieFavorite) {
+        updateFavoriteMenuItem(movieFavorite.isFavorite)
+        with(movieFavorite.movie) {
+            (requireActivity() as AppCompatActivity)
+                .supportActionBar
+                ?.title = this.title
+
+            Glide
+                .with(this@MovieFragment)
+                .load(this.posterUrl)
+                .apply(requestOptions)
+                .into(binding.moviePoster)
+
+            binding.description.text = this.description
+            binding.rating.text = this.rating
+        }
     }
 
     private fun updateFavoriteMenuItem(isFavorite: Boolean) {
