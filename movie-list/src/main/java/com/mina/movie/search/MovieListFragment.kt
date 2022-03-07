@@ -54,10 +54,13 @@ class MovieListFragment : Fragment(), SearchView.OnQueryTextListener, MovieListI
             .viewState
             .onEach {
                 binding.textView.visibility = VISIBLE
+                binding.searchView.isSubmitButtonEnabled = true
                 when (it) {
                     is MovieListViewModel.ViewState.Content -> showContent(it.movies)
-                    MovieListViewModel.ViewState.Loading -> binding.textView.text =
-                        getString(R.string.movie_list_loading)
+                    MovieListViewModel.ViewState.Loading -> {
+                        binding.searchView.isSubmitButtonEnabled = false
+                        binding.textView.text = getString(R.string.movie_list_loading)
+                    }
                     MovieListViewModel.ViewState.Error -> binding.textView.text =
                         getString(R.string.movie_list_error)
                     MovieListViewModel.ViewState.Empty -> binding.textView.text =
