@@ -11,14 +11,14 @@
         tools:context=".MovieFragment"
         android:padding="@dimen/gap">
 
+        <!-- Setting height from dimen resource is not taken into consideration -->
         <ImageView
             android:id="@+id/moviePoster"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/movie_poster_height"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="@dimen/gap_and_a_half"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/director"
@@ -27,6 +27,7 @@
             android:gravity="start"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/moviePoster"
+            android:layout_marginTop="@dimen/gap_and_a_half"
             android:text="@string/director"/>
 
         <TextView
@@ -35,7 +36,8 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/moviePoster" />
+            app:layout_constraintTop_toBottomOf="@id/moviePoster"
+            android:layout_marginTop="@dimen/gap_and_a_half"/>
 
         <TextView
             android:id="@+id/description"
