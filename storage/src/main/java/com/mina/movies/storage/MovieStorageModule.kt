@@ -1,6 +1,7 @@
 package com.mina.movies.storage
 
 import android.app.Application
+import com.mina.common.models.Movie
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -19,7 +20,10 @@ public object MovieStorageModule {
         val movieDao = MovieDatabaseBuilder(application = application)
             .build()
             .movieDao()
-       return MovieFavoriteRepositoryImpl(movieDao = movieDao)
+        val movieEntityConverter = MovieEntityConverter()
+        return MovieFavoriteRepositoryImpl(
+            movieDao = movieDao,
+            movieEntityConverter = movieEntityConverter
+        )
     }
-
 }

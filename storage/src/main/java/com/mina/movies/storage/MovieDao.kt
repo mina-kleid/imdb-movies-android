@@ -2,11 +2,12 @@ package com.mina.movies.storage
 
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 internal interface MovieDao {
     @Query("SELECT * FROM movie")
-    suspend fun getFavoriteMovies(): List<MovieEntity>
+    fun getFavoriteMovies(): Flow<List<MovieEntity>>
 
     @Query("SELECT * FROM movie where title = :title AND year = :year LIMIT 1")
     suspend fun getMovie(title: String, year: String): MovieEntity?

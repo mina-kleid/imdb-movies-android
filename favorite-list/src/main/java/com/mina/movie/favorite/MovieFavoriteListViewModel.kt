@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,8 +17,7 @@ import javax.inject.Inject
 internal class MovieFavoriteListViewModel @Inject constructor(
     private val movieFavoriteListRepository: MovieFavoriteListRepository,
     private val movieJsonConverter: MovieJsonConverter
-    ) :
-    ViewModel(),
+) : ViewModel(),
     LifecycleObserver {
 
     private val _viewState: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Empty)
@@ -26,16 +26,15 @@ internal class MovieFavoriteListViewModel @Inject constructor(
     private val _viewEvent: Channel<ViewEvent> = Channel(Channel.CONFLATED)
     val viewEvent: Flow<ViewEvent> = _viewEvent.receiveAsFlow()
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun loadFavorites() {
         _viewState.value = ViewState.Loading
         viewModelScope.launch {
-            val movies: List<Movie> = movieFavoriteListRepository.loadFavorites()
-            if (movies.isNotEmpty()) {
-                _viewState.value = ViewState.Content(movies)
-            } else {
-                _viewState.value = ViewState.Empty
-            }
+            movieFavoriteListRepository
+                .loadFavorites()
+                .collect {
+                    _viewState.value = if (it.isEmpty()) ViewState.Empty else ViewState.Content(it)
+                }
         }
 
     }
@@ -55,6 +54,6 @@ internal class MovieFavoriteListViewModel @Inject constructor(
     }
 
     sealed class ViewEvent {
-        data class Navigate(val uri: Uri): ViewEvent()
+        data class Navigate(val uri: Uri) : ViewEvent()
     }
 }

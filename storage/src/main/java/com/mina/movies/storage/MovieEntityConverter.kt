@@ -2,7 +2,7 @@ package com.mina.movies.storage
 
 import com.mina.common.models.Movie
 
-internal object MovieEntityConverter {
+internal class MovieEntityConverter {
 
     fun convertToMovieEntity(movie: Movie): MovieEntity =
         MovieEntity(
