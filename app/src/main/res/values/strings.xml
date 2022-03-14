@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Movies</string>
+    <string name="missing_internet_connection">You are not connected to the internet</string>
 </resources>
