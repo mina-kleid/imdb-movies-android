@@ -45,4 +45,10 @@ dependencies {
     implementation libraries.app.navigation.dynamicFeatures
 
     kapt libraries.app.hilt.compiler
+
+    testImplementation libraries.test.mockito.android
+    testImplementation libraries.test.mockito.kotlin
+    testImplementation libraries.test.kotlin.coroutines
+    testImplementation libraries.test.junit
+    testImplementation libraries.test.turbine
 }

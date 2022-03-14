@@ -4,9 +4,9 @@ ext {
     def moshi_version = "1.13.0"
     def retro_version = "2.9.0"
     def okHttp_version = "4.9.3"
-
+    def coroutine_version = "1.4.3"
     libraries = [
-            app: [
+            app : [
                     "androidx": [
                             "activity"    : "androidx.activity:activity-ktx:1.2.3",
                             "annotations" : "androidx.annotation:annotation:1.2.0",
@@ -26,8 +26,8 @@ ext {
                     kotlin    : [
                             "stdlib"    : "org.jetbrains.kotlin:kotlin-stdlib:1.6.10",
                             "coroutines": [
-                                    "android": "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3",
-                                    "core"   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3",
+                                    "android": "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version",
+                                    "core"   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version",
                             ],
                     ],
                     lifecycle : [
@@ -61,7 +61,18 @@ ext {
                                     core: "com.squareup.okhttp3:okhttp:$okHttp_version"
                             ]
                     ],
-                    glide : "com.github.bumptech.glide:glide:4.11.0",
+                    glide     : "com.github.bumptech.glide:glide:4.11.0",
+            ],
+            test: [
+                    mockito: [
+                            kotlin:  "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0",
+                            android: "org.mockito:mockito-android:4.4.0"
+                    ],
+                    kotlin : [
+                            coroutines: "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutine_version"
+                    ],
+                    junit  : "junit:junit:4.13.2",
+                    turbine: "app.cash.turbine:turbine:0.7.0"
             ]
     ]
 }
