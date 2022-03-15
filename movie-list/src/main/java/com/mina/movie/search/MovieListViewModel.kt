@@ -1,6 +1,5 @@
 package com.mina.movie.search
 
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mina.common.models.Movie
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import java.net.URI
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,9 +36,9 @@ internal class MovieListViewModel @Inject constructor(
 
     fun movieClicked(movie: Movie) {
         val movieJson: String = movieJsonConverter.toJson(movie)
-        val uri = Uri.parse("android-app://com.mina.movies/movie_fragment?movie=$movieJson")
+        val uriString = "android-app://com.mina.movies/movie_fragment?movie=$movieJson"
         viewModelScope.launch {
-            _viewEvent.send(ViewEvent.Navigate(uri = uri))
+            _viewEvent.send(ViewEvent.Navigate(uriString = uriString))
         }
     }
 
@@ -64,6 +62,6 @@ internal class MovieListViewModel @Inject constructor(
     }
 
     sealed class ViewEvent {
-        data class Navigate(val uri: Uri): ViewEvent()
+        data class Navigate(val uriString: String): ViewEvent()
     }
 }

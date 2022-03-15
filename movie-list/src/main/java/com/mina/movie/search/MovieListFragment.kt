@@ -1,5 +1,6 @@
 package com.mina.movie.search
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -76,7 +77,11 @@ class MovieListFragment : Fragment(), SearchView.OnQueryTextListener, MovieListI
             .viewEvent
             .onEach {
                 when (it) {
-                    is MovieListViewModel.ViewEvent.Navigate -> findNavController().navigate(it.uri)
+                    is MovieListViewModel.ViewEvent.Navigate ->
+                    {
+                        val uri = Uri.parse(it.uriString)
+                        findNavController().navigate(uri)
+                    }
                 }
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
