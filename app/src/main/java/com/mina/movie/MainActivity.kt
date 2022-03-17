@@ -15,11 +15,12 @@ import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.mina.movie.connectivity.NetworkMonitor
 import com.mina.movie.databinding.MainActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 internal class MainActivity : AppCompatActivity() {
 

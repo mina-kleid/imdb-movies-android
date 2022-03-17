@@ -1,5 +1,4 @@
 <resources>
     <string name="movie_favorite_list_empty">Your favorite list is empty</string>
-    <string name="movie_favorite_list_error">There is an error, Please try again later</string>
     <string name="movie_favorite_list_loading">Loading your favorites list</string>
 </resources>
