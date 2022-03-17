@@ -6,7 +6,7 @@
     app:startDestination="@id/movieFragment">
     <fragment
         android:id="@+id/movieFragment"
-        android:name="com.mina.movie.MovieFragment"
+        android:name="com.mina.movie.detail.MovieFragment"
         tools:layout="@layout/movie_fragment" >
 
         <argument android:name="movie" app:argType="string"/>

@@ -1,4 +1,4 @@
-package com.mina.movie
+package com.mina.movie.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

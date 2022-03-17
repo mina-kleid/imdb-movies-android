@@ -1,4 +1,4 @@
-package com.mina.movie
+package com.mina.movie.detail
 
 import com.mina.common.models.Movie
 

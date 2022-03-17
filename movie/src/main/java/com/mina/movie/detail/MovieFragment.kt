@@ -1,4 +1,4 @@
-package com.mina.movie
+package com.mina.movie.detail
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.mina.movie.databinding.MovieFragmentBinding
+import com.mina.movie.detail.databinding.MovieFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
