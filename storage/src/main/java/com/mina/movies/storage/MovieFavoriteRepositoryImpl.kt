@@ -21,7 +21,10 @@ internal class MovieFavoriteRepositoryImpl @Inject constructor(
         movieDao.getMovie(title = movie.title, year = movie.year) != null
 
     override suspend fun addMovieToFavorite(movie: Movie) {
-        val movieEntity: MovieEntity = movieEntityConverter.convertToMovieEntity(movie = movie)
+        val movieEntity: MovieEntity = movieEntityConverter
+            .convertToMovieEntity(movie = movie)
+            .copy(isFavorite = true)
+
         movieDao.updateOrInsert(movieEntity)
     }
 
