@@ -92,11 +92,12 @@ class MovieListFragment :
             .viewEvent
             .onEach {
                 when (it) {
-                    is MovieListViewModel.ViewEvent.Navigate ->
-                    {
+                    is MovieListViewModel.ViewEvent.Navigate -> {
                         val uri = Uri.parse(it.uriString)
                         findNavController().navigate(uri)
                     }
+                    is MovieListViewModel.ViewEvent.HideMovie ->
+                        adapter.hideItem(it.position)
                 }
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
