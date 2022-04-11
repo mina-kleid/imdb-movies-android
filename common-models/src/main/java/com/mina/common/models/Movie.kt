@@ -11,4 +11,13 @@ public data class Movie constructor(
     val description: String,
     val rating: String,
     val posterUrl: String?
-    ): Parcelable
+) : Parcelable {
+
+    override fun equals(other: Any?): Boolean {
+        if (other is Movie?) {
+            return this.title == other?.title
+                    && this.year == other?.year
+        }
+        return false
+    }
+}

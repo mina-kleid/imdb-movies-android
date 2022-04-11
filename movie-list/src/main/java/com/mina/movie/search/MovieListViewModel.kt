@@ -44,8 +44,10 @@ internal class MovieListViewModel @Inject constructor(
     }
 
     fun hideMovie(position: Int) {
+        val movieToHide: Movie = movies[position]
         movies.removeAt(position)
         viewModelScope.launch {
+            movieListRepository.hideMovie(movieToHide)
             _viewEvent.send(ViewEvent.HideMovie(position = position))
         }
     }
