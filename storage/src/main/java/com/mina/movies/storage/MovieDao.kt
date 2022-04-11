@@ -28,7 +28,7 @@ internal interface MovieDao {
         val movieEntityFromDatabase: MovieEntity? =
             getMovie(title = movieEntity.title, year = movieEntity.year)
         if (movieEntityFromDatabase != null) {
-            update(movieEntityFromDatabase)
+            update(movieEntity)
         } else {
             insert(movieEntity)
         }

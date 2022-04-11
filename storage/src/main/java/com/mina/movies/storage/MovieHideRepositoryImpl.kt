@@ -20,7 +20,7 @@ internal class MovieHideRepositoryImpl @Inject constructor(
     override suspend fun hideMovie(movie: Movie) {
         val movieEntity: MovieEntity = movieEntityConverter
             .convertToMovieEntity(movie = movie)
-            .copy(isHidden = true)
+            .copy(isHidden = true, isFavorite = false)
 
         movieDao.updateOrInsert(movieEntity)
     }
