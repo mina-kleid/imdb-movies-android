@@ -1,15 +1,11 @@
 package com.mina.movies.storage
 
 import android.app.Application
-import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.mina.common.models.Movie
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 
 @Module
@@ -36,11 +32,11 @@ public object MovieStorageModule {
 
     @Provides
     @Reusable
-    fun movieHiddenRepository(database: RoomDatabase): MovieHiddenRepository {
+    fun movieHiddenRepository(database: RoomDatabase): MovieHideRepository {
         val movieDao = (database as MovieDatabase).movieDao()
 
         val movieEntityConverter = MovieEntityConverter()
-        return MovieHiddenRepositoryImpl(
+        return MovieHideRepositoryImpl(
             movieDao = movieDao,
             movieEntityConverter = movieEntityConverter
         )
