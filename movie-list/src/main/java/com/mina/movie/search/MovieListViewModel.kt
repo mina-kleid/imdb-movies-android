@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class MovieListViewModel @Inject constructor(
-    private val movieListRepository: MovieListRepository,
+    private val movieListUseCase: MovieListUseCase,
     private val movieJsonConverter: MovieJsonConverter
 ) : ViewModel() {
 
@@ -47,22 +47,22 @@ internal class MovieListViewModel @Inject constructor(
         val movieToHide: Movie = movies[position]
         movies.removeAt(position)
         viewModelScope.launch {
-            movieListRepository.hideMovie(movieToHide)
+            movieListUseCase.hideMovie(movieToHide)
             _viewEvent.send(ViewEvent.HideMovie(position = position))
         }
     }
 
     private suspend fun getMovies(query: String): ViewState =
         when (
-            val response: MovieListRepository.MovieListResponse =
-                movieListRepository.searchMovies(query)
+            val response: MovieListUseCase.MovieListUseCaseResponse =
+                movieListUseCase.searchMovies(query)
         ) {
-            is MovieListRepository.MovieListResponse.Success -> {
+            is MovieListUseCase.MovieListUseCaseResponse.Success -> {
                 movies = response.movies.toMutableList()
                 ViewState.Content(movies)
             }
-            MovieListRepository.MovieListResponse.Empty -> ViewState.Empty
-            is MovieListRepository.MovieListResponse.Error -> ViewState.Error
+            MovieListUseCase.MovieListUseCaseResponse.Empty -> ViewState.Empty
+            is MovieListUseCase.MovieListUseCaseResponse.Error -> ViewState.Error
         }
 
     sealed class ViewState {
@@ -76,6 +76,6 @@ internal class MovieListViewModel @Inject constructor(
 
     sealed class ViewEvent {
         data class Navigate(val uriString: String) : ViewEvent()
-        data class HideMovie(val position: Int): ViewEvent()
+        data class HideMovie(val position: Int) : ViewEvent()
     }
 }
