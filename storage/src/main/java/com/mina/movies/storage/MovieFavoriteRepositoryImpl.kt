@@ -25,7 +25,7 @@ internal class MovieFavoriteRepositoryImpl @Inject constructor(
             .convertToMovieEntity(movie = movie)
             .copy(isFavorite = true)
 
-        movieDao.updateOrInsert(movieEntity)
+        movieDao.insert(movieEntity)
     }
 
     override suspend fun removeMovieFromFavorite(movie: Movie) {
