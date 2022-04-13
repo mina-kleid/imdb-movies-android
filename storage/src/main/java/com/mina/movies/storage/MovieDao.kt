@@ -18,19 +18,6 @@ internal interface MovieDao {
     @Insert(onConflict = REPLACE)
     suspend fun insert(movieEntity: MovieEntity)
 
-    @Update
-    suspend fun update(vararg movieEntity: MovieEntity)
-
     @Delete
     suspend fun delete(movieEntity: MovieEntity)
-
-    suspend fun updateOrInsert(movieEntity: MovieEntity) {
-        val movieEntityFromDatabase: MovieEntity? =
-            getMovie(title = movieEntity.title, year = movieEntity.year)
-        if (movieEntityFromDatabase != null) {
-            update(movieEntityFromDatabase)
-        } else {
-            insert(movieEntity)
-        }
-    }
 }

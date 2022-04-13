@@ -27,6 +27,11 @@ public class MovieListAdapter @Inject constructor(
 
     override fun getItemCount(): Int = movies.size
 
+    fun hideItem(position: Int) {
+        movies.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     fun updateAdapter(movies: List<Movie>) {
         this.movies.clear()
         this.movies.addAll(movies)

@@ -12,10 +12,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.LEFT
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mina.common.models.Movie
 import com.mina.movie.item.MovieListAdapter
 import com.mina.movie.item.MovieListItemClickListener
+import com.mina.movie.item.MovieListItemSwipeListener
+import com.mina.movie.item.RecyclerViewSwipeHandler
 import com.mina.movie.search.databinding.MovieListFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -23,13 +28,20 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MovieListFragment : Fragment(), SearchView.OnQueryTextListener, MovieListItemClickListener {
+class MovieListFragment :
+    Fragment(),
+    SearchView.OnQueryTextListener,
+    MovieListItemClickListener,
+    MovieListItemSwipeListener {
 
     private lateinit var binding: MovieListFragmentBinding
     private val viewModel: MovieListViewModel by viewModels()
 
     @Inject
     internal lateinit var adapter: MovieListAdapter
+
+    @Inject
+    internal lateinit var swipeCallback: RecyclerViewSwipeHandler
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,10 +56,13 @@ class MovieListFragment : Fragment(), SearchView.OnQueryTextListener, MovieListI
         super.onViewCreated(view, savedInstanceState)
         observeViewStates()
         observeViewEvents()
-        binding.searchView.isSubmitButtonEnabled = true
-        binding.searchView.setOnQueryTextListener(this)
-        binding.movieList.adapter = adapter
-        binding.movieList.layoutManager = LinearLayoutManager(context);
+        with(binding) {
+            searchView.isSubmitButtonEnabled = true
+            searchView.setOnQueryTextListener(this@MovieListFragment)
+            movieList.adapter = adapter
+            movieList.layoutManager = LinearLayoutManager(context)
+            ItemTouchHelper(swipeCallback).attachToRecyclerView(movieList)
+        }
     }
 
     private fun observeViewStates() {
@@ -77,11 +92,12 @@ class MovieListFragment : Fragment(), SearchView.OnQueryTextListener, MovieListI
             .viewEvent
             .onEach {
                 when (it) {
-                    is MovieListViewModel.ViewEvent.Navigate ->
-                    {
+                    is MovieListViewModel.ViewEvent.Navigate -> {
                         val uri = Uri.parse(it.uriString)
                         findNavController().navigate(uri)
                     }
+                    is MovieListViewModel.ViewEvent.HideMovie ->
+                        adapter.hideItem(it.position)
                 }
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
@@ -103,5 +119,9 @@ class MovieListFragment : Fragment(), SearchView.OnQueryTextListener, MovieListI
 
     override fun onItemClicked(movie: Movie) {
         viewModel.movieClicked(movie = movie)
+    }
+
+    override fun movieItemSwipedLeft(viewHolder: RecyclerView.ViewHolder) {
+        viewModel.hideMovie(viewHolder.adapterPosition)
     }
 }

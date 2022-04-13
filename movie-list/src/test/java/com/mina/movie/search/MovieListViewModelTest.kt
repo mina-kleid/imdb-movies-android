@@ -18,11 +18,11 @@ internal class MovieListViewModelTest {
     @get:Rule
     var coroutineTestRule = CoroutineTestRule()
 
-    private val movieListRepository: MovieListRepository = mock()
+    private val movieListUseCase: MovieListUseCase = mock()
     private val movieJsonConverter: MovieJsonConverter = mock()
 
     private val viewModel: MovieListViewModel = MovieListViewModel(
-        movieListRepository = movieListRepository,
+        movieListUseCase = movieListUseCase,
         movieJsonConverter = movieJsonConverter
     )
 
@@ -38,7 +38,7 @@ internal class MovieListViewModelTest {
 
     @Test
     fun `viewState should emit empty when there are no results`() = runBlockingTest {
-        given(movieListRepository.searchMovies(any())).willReturn(MovieListRepository.MovieListResponse.Empty)
+        given(movieListUseCase.searchMovies(any())).willReturn(MovieListUseCase.MovieListUseCaseResponse.Empty)
 
         viewModel.performSearch("test")
         viewModel
@@ -50,8 +50,8 @@ internal class MovieListViewModelTest {
 
     @Test
     fun `viewState should emit error when repository returns error`() = runBlockingTest {
-        given(movieListRepository.searchMovies(any())).willReturn(
-            MovieListRepository.MovieListResponse.Error(
+        given(movieListUseCase.searchMovies(any())).willReturn(
+            MovieListUseCase.MovieListUseCaseResponse.Error(
                 Exception()
             )
         )
@@ -78,8 +78,8 @@ internal class MovieListViewModelTest {
     @Test
     fun `viewState should emit content`() = runBlockingTest {
         val movieList: List<Movie> = mock()
-        given(movieListRepository.searchMovies(any()))
-            .willReturn(MovieListRepository.MovieListResponse.Success(movieList))
+        given(movieListUseCase.searchMovies(any()))
+            .willReturn(MovieListUseCase.MovieListUseCaseResponse.Success(movieList))
 
         viewModel.performSearch("test")
 

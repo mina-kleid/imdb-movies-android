@@ -10,6 +10,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThrows
 import org.junit.Rule
 import org.junit.Test
 
@@ -27,42 +28,17 @@ internal class MovieListRepositoryTest {
         movieDtoConverter = movieDtoConverter
     )
 
-
     @Test
-    fun `should return empty response if movie list is empty`() = runBlockingTest {
-        val result: Result<MoviesResponseDto> =
-            Result.success(MoviesResponseDto(movies = emptyList()))
-        given(moviesService.getMovies(any())).willReturn(result)
-
-        val response: MovieListRepository.MovieListResponse = movieListRepository.searchMovies("")
-        assertEquals(response, MovieListRepository.MovieListResponse.Empty)
-    }
-
-    @Test
-    fun `should return error if service response is failure`() = runBlockingTest {
-        val result: Result<MoviesResponseDto> = Result.failure(Exception())
-        given(moviesService.getMovies(any())).willReturn(result)
-
-        val response: MovieListRepository.MovieListResponse = movieListRepository
-            .searchMovies("")
-
-        assert(response is MovieListRepository.MovieListResponse.Error)
-    }
-
-    @Test
-    fun `should return success with movie list`() = runBlockingTest {
+    fun `should return list of movies`() = runBlockingTest {
+        val movie: Movie = mock()
         val moviesResponseDto: MoviesResponseDto = mock {
             whenever(it.movies).thenReturn(listOf(mock()))
         }
-        val result: Result<MoviesResponseDto> = Result.success(moviesResponseDto)
-        given(moviesService.getMovies(any())).willReturn(result)
-
-        val movie: Movie = mock()
+        given(moviesService.getMovies(any())).willReturn(Result.success(moviesResponseDto))
         given(movieDtoConverter.convert(any(), any())).willReturn(movie)
 
-        val response: MovieListRepository.MovieListResponse = movieListRepository
-            .searchMovies("")
+        val result = movieListRepository.searchMovies("")
 
-        assertEquals(response, MovieListRepository.MovieListResponse.Success(listOf(movie)))
+        assertEquals(listOf(movie), result)
     }
 }

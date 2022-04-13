@@ -5,10 +5,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-internal class MovieHiddenRepositoryImpl @Inject constructor(
+internal class MovieHideRepositoryImpl @Inject constructor(
     private val movieDao: MovieDao,
     private val movieEntityConverter: MovieEntityConverter
-) : MovieHiddenRepository {
+) : MovieHideRepository {
 
     override suspend fun getAllHiddenMovies(): Flow<List<Movie>> =
         movieDao
@@ -22,6 +22,6 @@ internal class MovieHiddenRepositoryImpl @Inject constructor(
             .convertToMovieEntity(movie = movie)
             .copy(isHidden = true)
 
-        movieDao.updateOrInsert(movieEntity)
+        movieDao.insert(movieEntity)
     }
 }

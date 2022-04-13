@@ -33,6 +33,7 @@ dependencies {
     implementation project(":common-ui")
     implementation project(":movie-item")
     implementation project(":network")
+    implementation project(":storage")
 
     implementation libraries.app.androidx.appcompat
     implementation libraries.app.androidx.material
