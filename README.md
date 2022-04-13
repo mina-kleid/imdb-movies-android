@@ -9,13 +9,13 @@ Android app to search for movies and add your favorite movies to your favorite l
 2. Show movie details
 3. Favorite a movie
 4. Show list of favorite movies
+5. Adding hiding a movie from search results
 
 ## Next steps ##
 1. Use Compose for UI Layer
-2. Adding hiding a movie from search results
-3. UI Tests
-4. Extending Unit tests
-5. Using gradle KTS
+2. UI Tests
+3. Extending Unit tests
+4. Using gradle KTS
 
 ## Tech stack ##
 1. Hilt
