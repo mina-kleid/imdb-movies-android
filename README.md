@@ -9,7 +9,7 @@ Android app to search for movies and add your favorite movies to your favorite l
 2. Show movie details
 3. Favorite a movie
 4. Show list of favorite movies
-5. Adding hiding a movie from search results
+5. Hide a movie from search results
 
 ## Next steps ##
 1. Use Compose for UI Layer
